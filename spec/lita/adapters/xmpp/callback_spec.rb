@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe Lita::Adapters::HipChat::Callback, lita: true do
+describe Lita::Adapters::XMPP::Callback, lita: true do
   subject { described_class.new(robot, roster) }
 
-  prepend_before { registry.register_adapter(:hipchat, Lita::Adapters::HipChat) }
+  prepend_before { registry.register_adapter(:xmpp, Lita::Adapters::XMPP) }
 
   let(:registry) { Lita::Registry.new }
   let(:robot) do
@@ -99,7 +99,7 @@ describe Lita::Adapters::HipChat::Callback, lita: true do
     end
 
     it "ignores messages from unknown users if the config for it is set" do
-      registry.config.adapters.hipchat.ignore_unknown_users = true
+      registry.config.adapters.xmpp.ignore_unknown_users = true
       allow(muc).to receive(:on_message).and_yield(nil, "Unknown", "foo")
       expect(robot).not_to receive(:receive)
       subject.muc_message(muc)

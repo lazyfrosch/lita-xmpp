@@ -1,19 +1,22 @@
-require "lita/adapters/hipchat/callback"
+require "lita/adapters/xmpp/callback"
 
 require "xmpp4r"
+require 'xmpp4r/jid'
 require "xmpp4r/roster/helper/roster"
 require "xmpp4r/muc/helper/simplemucclient"
 require "xmpp4r/muc/helper/mucbrowser"
 
 module Lita
   module Adapters
-    class HipChat < Adapter
+    class XMPP < Adapter
       class Connector
         attr_reader :robot, :client, :roster
 
         def initialize(robot, jid, password, server, debug: false)
+          jid = Jabber::JID.new(jid)
+          jid.resource = 'bot'
           @robot = robot
-          @jid = normalized_jid(jid, "chat.hipchat.com", "bot")
+          @jid = jid
           @password = password
           @server = server
           @client = Jabber::Client.new(@jid)
@@ -97,7 +100,7 @@ module Lita
         end
 
         def shut_down
-          Lita.logger.info("Disconnecting from HipChat.")
+          Lita.logger.info('Disconnecting from XMPP.')
           client.close
         end
 
@@ -109,10 +112,10 @@ module Lita
         end
 
         def client_connect
-          Lita.logger.info("Connecting to HipChat.")
+          Lita.logger.info('Connecting to XMPP.')
           client.connect(@server)
           sleep 0.0001 until client.is_connected?
-          Lita.logger.debug("Authenticating with HipChat.")
+          Lita.logger.debug('Authenticating with XMPP.')
           client.auth(@password)
         end
 

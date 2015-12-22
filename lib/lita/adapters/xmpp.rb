@@ -1,20 +1,20 @@
 require "lita"
-require "lita/adapters/hipchat/connector"
+require "lita/adapters/xmpp/connector"
 
 module Lita
   module Adapters
-    class HipChat < Adapter
-      namespace "hipchat"
+    class XMPP < Adapter
+      namespace "xmpp"
 
       # Required attributes
       config :jid, type: String, required: true
       config :password, type: String, required: true
 
       # Optional attributes
-      config :server, type: String, default: "chat.hipchat.com"
+      config :server, type: String
       config :debug, type: [TrueClass, FalseClass], default: false
       config :rooms, type: [Symbol, Array]
-      config :muc_domain, type: String, default: "conf.hipchat.com"
+      config :muc_domain, type: String
       config :ignore_unknown_users, type: [TrueClass, FalseClass], default: false
 
       attr_reader :connector
@@ -106,6 +106,6 @@ module Lita
       end
     end
 
-    Lita.register_adapter(:hipchat, HipChat)
+    Lita.register_adapter(:xmpp, XMPP)
   end
 end

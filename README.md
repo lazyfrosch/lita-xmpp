@@ -1,63 +1,67 @@
-# lita-hipchat
+# lita-xmpp
 
-[![Build Status](https://travis-ci.org/jimmycuadra/lita-hipchat.png?branch=master)](https://travis-ci.org/jimmycuadra/lita-hipchat)
-[![Code Climate](https://codeclimate.com/github/jimmycuadra/lita-hipchat.png)](https://codeclimate.com/github/jimmycuadra/lita-hipchat)
-[![Coverage Status](https://coveralls.io/repos/jimmycuadra/lita-hipchat/badge.png)](https://coveralls.io/r/jimmycuadra/lita-hipchat)
+[![Build Status](https://travis-ci.org/lazyfrosch/lita-xmpp.png?branch=master)](https://travis-ci.org/lazyfrosch/lita-xmpp)
+<!--
+[![Code Climate](https://codeclimate.com/github/lazyfrosch/lita-xmpp.png)](https://codeclimate.com/github/lazyfrosch/lita-xmpp)
+[![Coverage Status](https://coveralls.io/repos/lazyfrosch/lita-xmpp/badge.png)](https://coveralls.io/r/lazyfrosch/lita-xmpp)
+-->
 
-**lita-hipchat** is an adapter for [Lita](https://github.com/jimmycuadra/lita) that allows you to use the robot with [HipChat](https://www.hipchat.com/).
+**lita-xmpp** is an adapter for [Lita](https://github.com/litaio/lita) that allows you to use the robot with a XMPP / Jabber server.
+
+It has been forked from the **lita-hipchat** adapter, to use it with a regular XMPP server, and avoid all the HipChat specific handling.
 
 ## Installation
 
-Add lita-hipchat to your Lita instance's Gemfile:
+Add lita-xmpp to your Lita instance's Gemfile:
 
 ``` ruby
-gem "lita-hipchat"
+gem 'lita-xmpp'
 ```
 
 ## Configuration
 
-Values for all of the following attributes can be found on the "XMPP/Jabber info" page of the account settings on the HipChat website. A JID (Jabber ID) looks like "12345_123456@chat.hipchat.com".
+These config settings are basically the same as you would put into your regular XMPP/Jabber client. A usual JID (Jabber ID) looks like `mr_bot@jabber.example.com`.
 
 ### Required attributes
 
-* `jid` (String) - The JID of your robot's HipChat account. Default: `nil`.
-* `password` (String) - The password for your robot's HipChat account. Default: `nil`.
+* `jid` (String) - The JID of your robot's XMPP account.
+* `password` (String) - The password for your robot's XMPP account.
 
 ### Optional attributes
 
-* `server` (String) - The HipChat Server address. Override this with the full domain of your server if using a private HipChat Server installation. Default: `"chat.hipchat.com"`
+* `server` (String) - The XMPP Server address. Override this if the bot has to connect to a specific host. Default: your JIDs hostname part
 * `debug` (Boolean) - If `true`, turns on the underlying Jabber library's (xmpp4r) logger, which is fairly verbose. Default: `false`.
 * **DEPRECATED** - `rooms` (Symbol, Array<String>) - An array of room JIDs that Lita should join upon connection. Can also be the symbol `:all`, which will cause Lita to discover and join all rooms. Default: `nil` (no rooms).
-* `muc_domain` (String) - The XMPP Multi-User Chat domain to use. Default: `"conf.hipchat.com"`.
-* `ignore_unknown_users` (Boolean) - Messages generated through HipChat's API which don't come from a real user account will be ignored by the robot. With the default setting of false, Lita will emit a warning but the message will be dispatched to any registered handlers as usual. Default: `false`.
+* `muc_domain` (String) - The XMPP Multi-User Chat domain to use. Default: `conference.<yourserver>`.
+* `ignore_unknown_users` (Boolean) - TODO: review this Default: `false`.
 
-**Note: You must set the robot's name to the value shown as "Room nickname" on the XMPP settings page.**
-
-There's no need to set `config.robot.mention_name` manually. The adapter will load the proper mention name from the XMPP roster upon connection.
+There's no need to set `config.robot.mention_name` manually. The adapter will set the name to the username part of its JID.
 
 ### Example
 
 ``` ruby
 Lita.configure do |config|
   config.robot.name = "Lita Bot"
-  config.robot.adapter = :hipchat
-  config.adapters.hipchat.jid = "12345_123456@chat.hipchat.com"
-  config.adapters.hipchat.password = "secret"
-  config.adapters.hipchat.debug = true
-  config.adapters.hipchat.rooms = :all
+  config.robot.adapter = :xmpp
+  config.adapters.xmpp.jid = "lita@jabber.example.com"
+  config.adapters.xmpp.password = "secret"
+  config.adapters.xmpp.debug = true
+  config.adapters.xmpp.rooms = :all
 end
 ```
 
 ## Events
 
-* `:connected` - When the robot has connected to HipChat. No payload.
-* `:disconnected` - When the robot has disconnected from HipChat. No payload.
+* `:connected` - When the robot has connected to XMPP. No payload.
+* `:disconnected` - When the robot has disconnected from XMPP. No payload.
 * `:joined` - When the robot joins a room. Payload: `:room`: The String room ID that was joined.
 * `:parted` - When the robot parts from a room. Payload: `:room`: The String room ID that was parted from.
 
 ## Managing rooms
 
-To make Lita join or part from rooms, use the [built-in `join` and `part` commands](http://docs.lita.io/getting-started/usage/#managing-rooms). For backwards compatibility, the `rooms` configuration attribute will be supported until lita-hipchat 4.0, but you should remove it and begin using the new command instead. If the configuration attribute is set, lita-hipchat will honor its value and join those rooms instead of the ones persisted to Redis from using the new commands.
+(TODO)
+
+To make Lita join or part from rooms, use the [built-in `join` and `part` commands](http://docs.lita.io/getting-started/usage/#managing-rooms). For backwards compatibility, the `rooms` configuration attribute will be supported until lita-xmpp 4.0, but you should remove it and begin using the new command instead. If the configuration attribute is set, lita-xmpp will honor its value and join those rooms instead of the ones persisted to Redis from using the new commands.
 
 ## License
 

@@ -6,7 +6,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start { add_filter "/spec/" }
 
-require "lita-hipchat"
+require "lita-xmpp"
 require "lita/rspec"
 
 Lita.version_3_compatibility_mode = false

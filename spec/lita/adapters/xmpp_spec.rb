@@ -1,14 +1,14 @@
 require "spec_helper"
 
-describe Lita::Adapters::HipChat, lita: true do
+describe Lita::Adapters::XMPP, lita: true do
   before do
-    registry.register_adapter(:hipchat, described_class)
+    registry.register_adapter(:xmpp, described_class)
 
     registry.configure do |config|
-      config.adapters.hipchat.jid = "jid"
-      config.adapters.hipchat.password = "secret"
-      config.adapters.hipchat.muc_domain = domain
-      config.adapters.hipchat.rooms = rooms
+      config.adapters.xmpp.jid = "jid"
+      config.adapters.xmpp.password = "secret"
+      config.adapters.xmpp.muc_domain = domain
+      config.adapters.xmpp.rooms = rooms
     end
 
     allow(described_class::Connector).to receive(:new).and_return(connector)
@@ -18,12 +18,12 @@ describe Lita::Adapters::HipChat, lita: true do
   subject { described_class.new(robot) }
 
   let(:robot) { Lita::Robot.new(registry) }
-  let(:connector) { instance_double("Lita::Adapters::HipChat::Connector") }
-  let(:domain) { "conf.hipchat.com" }
+  let(:connector) { instance_double('Lita::Adapters::XMPP::Connector') }
+  let(:domain) { 'jabber.example.com' }
   let(:rooms) { %w(room_1 room_2) }
 
   it "registers with Lita" do
-    expect(Lita.adapters[:hipchat]).to eql(described_class)
+    expect(Lita.adapters[:xmpp]).to eql(described_class)
   end
 
   describe "#join" do
@@ -62,7 +62,7 @@ describe Lita::Adapters::HipChat, lita: true do
       allow(subject).to receive(:sleep)
     end
 
-    it "connects to HipChat" do
+    it "connects to XMPP" do
       expect(subject.connector).to receive(:connect)
       expect(robot).to receive(:trigger).with(:connected)
       subject.run
