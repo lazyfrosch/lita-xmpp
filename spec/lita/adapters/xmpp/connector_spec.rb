@@ -19,7 +19,7 @@ describe Lita::Adapters::XMPP::Connector, lita: true do
   before { allow(subject).to receive(:client).and_return(client) }
 
   it "sets the JID properly when only a node is supplied" do
-    subject = described_class.new(robot, "user", "secret", 'jabber.example.com')
+    subject = described_class.new(robot, "user@jabber.example.com", "secret", 'jabber.example.com')
     expect(subject.jid).to eq("user@jabber.example.com/bot")
   end
 
