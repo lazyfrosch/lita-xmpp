@@ -121,6 +121,7 @@ module Lita
 
         def register_exception_handler
           client.on_exception do |error, connection, error_source|
+            Lita.logger.debug("error: #{error}, error_source: #{error_source}")
             robot.shut_down
           end
         end
