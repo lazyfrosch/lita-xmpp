@@ -94,7 +94,7 @@ describe Lita::Adapters::XMPP, lita: true do
 
       it "logs a deprecation warning" do
         expect(Lita.logger).to receive(:warn) do |msg|
-          expect(msg).to include("config.rooms is deprecated")
+          expect(msg).to include("config.rooms")
         end
 
         subject.run
@@ -114,7 +114,7 @@ describe Lita::Adapters::XMPP, lita: true do
 
       it "logs a deprecation warning" do
         expect(Lita.logger).to receive(:warn) do |msg|
-          expect(msg).to include("config.rooms is deprecated")
+          expect(msg).to include("config.rooms")
         end
 
         subject.run
