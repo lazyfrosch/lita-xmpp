@@ -1,9 +1,9 @@
 # lita-xmpp
 
-[![Build Status](https://travis-ci.org/sadfuzzy/lita-xmpp.svg)](https://travis-ci.org/lazyfrosch/lita-xmpp)
+[![Build Status](https://travis-ci.org/sadfuzzy/lita-xmpp.png?branch=master)](https://travis-ci.org/sadfuzzy/lita-xmpp)
 <!--
-[![Code Climate](https://codeclimate.com/github/lazyfrosch/lita-xmpp.png)](https://codeclimate.com/github/lazyfrosch/lita-xmpp)
-[![Coverage Status](https://coveralls.io/repos/lazyfrosch/lita-xmpp/badge.png)](https://coveralls.io/r/lazyfrosch/lita-xmpp)
+[![Code Climate](https://codeclimate.com/github/sadfuzzy/lita-xmpp.png)](https://codeclimate.com/github/sadfuzzy/lita-xmpp)
+[![Coverage Status](https://coveralls.io/repos/sadfuzzy/lita-xmpp/badge.png)](https://coveralls.io/r/sadfuzzy/lita-xmpp)
 -->
 
 **lita-xmpp** is an adapter for [Lita](https://github.com/litaio/lita) that allows you to use the robot with a XMPP / Jabber server.
