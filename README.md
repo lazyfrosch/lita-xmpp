@@ -1,6 +1,6 @@
 # lita-xmpp
 
-[![Build Status](https://travis-ci.org/lazyfrosch/lita-xmpp.png?branch=master)](https://travis-ci.org/lazyfrosch/lita-xmpp)
+[![Build Status](https://travis-ci.org/sadfuzzy/lita-xmpp.svg)](https://travis-ci.org/lazyfrosch/lita-xmpp)
 <!--
 [![Code Climate](https://codeclimate.com/github/lazyfrosch/lita-xmpp.png)](https://codeclimate.com/github/lazyfrosch/lita-xmpp)
 [![Coverage Status](https://coveralls.io/repos/lazyfrosch/lita-xmpp/badge.png)](https://coveralls.io/r/lazyfrosch/lita-xmpp)
