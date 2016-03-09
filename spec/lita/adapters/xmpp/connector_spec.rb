@@ -35,7 +35,7 @@ describe Lita::Adapters::XMPP::Connector, lita: true do
 
   it "turns on the xmpp4r logger if debug: true is supplied" do
     expect(Jabber).to receive(:debug=).with(true)
-    subject = described_class.new(robot, "user", "secret", 'jabber.example.com', debug: true)
+    described_class.new(robot, "user", "secret", 'jabber.example.com', debug: true)
   end
 
   describe "#connect" do

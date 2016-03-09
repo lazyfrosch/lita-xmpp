@@ -87,7 +87,6 @@ describe Lita::Adapters::XMPP::Callback, lita: true do
     end
 
     it "creates a temporary source user if the JID isn't in the roster" do
-      roster = instance_double("Jabber::Roster::Helper", items: {})
       allow(muc).to receive(:on_message).and_yield(nil, "Unknown", "foo")
       allow(Lita::Source).to receive(:new).with(
         user: an_instance_of(Lita::User),
