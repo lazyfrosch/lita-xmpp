@@ -139,7 +139,7 @@ module Lita
           Callback.new(robot, roster).roster_update
           roster.get_roster
           roster.wait_for_roster
-          robot.mention_name = roster[jid].attributes["mention_name"]
+          robot.mention_name = roster[jid].attributes["mention_name"] || robot.mention_name
         end
 
         def normalized_jid(jid, domain, resource)
