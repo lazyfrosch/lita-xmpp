@@ -22,7 +22,7 @@ module Lita
         end
 
         def muc_message(muc)
-          muc.on_message do |time, nick, text|
+          muc.on_message do |_, nick, text|
             user = user_by_name(nick)
             next unless user
             source = Source.new(user: user, room: muc.jid.bare.to_s)
@@ -35,7 +35,7 @@ module Lita
         end
 
         def roster_update
-          roster.add_update_callback do |old_item, item|
+          roster.add_update_callback do |_, item|
             next unless item
             jid = item.attributes["jid"]
             Lita.logger.debug("Updating record for user with ID: #{jid}.")
@@ -60,7 +60,7 @@ module Lita
 
         def user_by_name(name)
           Lita.logger.debug("Looking up user with name: #{name}.")
-          items = roster.items.detect { |jid, item| item.iname == name }
+          items = roster.items.detect { |_, item| item.iname == name }
           if items
             user_by_jid(items.first)
           elsif !robot.config.adapters.xmpp.ignore_unknown_users

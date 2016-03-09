@@ -41,7 +41,7 @@ module Lita
         def join(muc_domain, room)
           room_jid = normalized_jid(room, muc_domain, robot.name)
           if mucs[room_jid.bare.to_s]
-            Lita.logger.debug "Already in room with JID #{room_jid.bare.to_s}"
+            Lita.logger.debug "Already in room with JID #{room_jid.bare}"
             return
           end
 
@@ -61,7 +61,7 @@ module Lita
         def list_rooms(muc_domain)
           Lita.logger.debug("Querying server for list of rooms.")
           browser = Jabber::MUC::MUCBrowser.new(client)
-          browser.muc_rooms(muc_domain).map { |jid, name| jid.to_s }
+          browser.muc_rooms(muc_domain).map { |jid, _| jid.to_s }
         end
 
         def message_jid(user_jid, strings)
@@ -120,7 +120,7 @@ module Lita
         end
 
         def register_exception_handler
-          client.on_exception do |error, connection, error_source|
+          client.on_exception do |error, _, error_source|
             Lita.logger.debug("error: #{error}, error_source: #{error_source}")
             robot.shut_down
           end
